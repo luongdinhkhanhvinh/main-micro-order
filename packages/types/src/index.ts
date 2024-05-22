@@ -1,2 +1,2 @@
-export * from './dish-menu';
-export * from './role';
+export * from '@/dish-menu';
+export * from '@/role';

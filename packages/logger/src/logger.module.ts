@@ -1,8 +1,8 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
-import { Logger } from './logger';
-import { LoggerMiddleware } from './logger.middleware';
-import { ConfigModule } from '../../config/src/config.module';
+import { Logger } from '@/logger';
+import { LoggerMiddleware } from '@/logger.middleware';
+import { ConfigModule } from '@order/config';
 
 @Module({
   imports: [ConfigModule],

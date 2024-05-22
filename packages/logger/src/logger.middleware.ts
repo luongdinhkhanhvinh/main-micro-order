@@ -3,7 +3,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
 import * as moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
-import { Logger } from './logger';
+import { Logger } from '@/logger';
 
 export interface RequestLog extends Request {
   correlationId?: string | string[];
@@ -18,23 +18,14 @@ export class LoggerMiddleware implements NestMiddleware<Request, Response> {
 
   public use(req: RequestLog, res: Response, next: () => void): any {
     const before = Date.now();
-    const id = req.headers['x-request-id']
-      ? req.headers['x-request-id']
-      : uuidv4();
+    const id = req.headers['x-request-id'] ? req.headers['x-request-id'] : uuidv4();
     this.logger && this.logger.setDefaultMeta(id as string);
     const span = req.headers['x-span'] || '0';
     req.correlationId = id;
     req.parentSpan = span;
     req.span = span;
     next();
-    res.on(
-      'close',
-      () =>
-        this.logger &&
-        this.logger.http(
-          this.generateLogMessage(req, res, Date.now() - before),
-        ),
-    );
+    res.on('close', () => this.logger && this.logger.http(this.generateLogMessage(req, res, Date.now() - before)));
   }
 
   private getResponseSize(res: Response): number {
@@ -54,11 +45,7 @@ export class LoggerMiddleware implements NestMiddleware<Request, Response> {
   /*
    date=${moment().format('DD/MMM/YYYY:HH:mm:ss ZZ')} trace=${id} type=IncomingRequest endpoint=${req.originalUrl} duration=${duration} span=${span} status=${res.statusCode} 
    */
-  private generateLogMessage(
-    req: RequestLog,
-    res: Response,
-    timeTaken: number,
-  ): string {
+  private generateLogMessage(req: RequestLog, res: Response, timeTaken: number): string {
     const size = this.getResponseSize(res);
     const terms: { [key: string]: string } = {
       '%h': req.socket.remoteAddress || '-',

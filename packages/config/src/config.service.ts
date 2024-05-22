@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigData, ConfigDatabase, ConfigSwagger } from './config.interface';
-import { DEFAULT_CONFIG } from './config.default';
+import { ConfigData, ConfigDatabase, ConfigSwagger } from '@/config.interface';
+import { DEFAULT_CONFIG } from '@/config.default';
 import * as admin from 'firebase-admin';
 
 @Injectable()
@@ -34,19 +34,13 @@ export class ConfigService {
     };
   }
 
-  private parseDBConfig(
-    env: NodeJS.ProcessEnv,
-    defaultConfig: Readonly<ConfigDatabase>,
-  ) {
+  private parseDBConfig(env: NodeJS.ProcessEnv, defaultConfig: Readonly<ConfigDatabase>) {
     return {
       url: env.DATABASE_URL || defaultConfig.url,
     };
   }
 
-  private parseSwaggerConfig(
-    env: NodeJS.ProcessEnv,
-    defaultConfig: Readonly<ConfigSwagger>,
-  ) {
+  private parseSwaggerConfig(env: NodeJS.ProcessEnv, defaultConfig: Readonly<ConfigSwagger>) {
     return {
       username: env.SWAGGER_USERNAME || defaultConfig.username,
       password: env.SWAGGER_PASSWORD || defaultConfig.password,

@@ -13,7 +13,13 @@
       "noUnusedParameters": true,
       "experimentalDecorators": true,
       "outDir": "./build",
-      "rootDir": "./src"
+      "rootDir": "./src",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": [
+          "src/*"
+        ]
+      },
     },
     "exclude": ["node_modules", "build"]
   }
