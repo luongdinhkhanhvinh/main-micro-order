@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigData, ConfigDatabase, ConfigSwagger } from '@/config.interface';
-import { DEFAULT_CONFIG } from '@/config.default';
+import { ConfigData, ConfigDatabase, ConfigSwagger } from './config.interface';
+import { DEFAULT_CONFIG } from './config.default';
 import * as admin from 'firebase-admin';
 
 @Injectable()
