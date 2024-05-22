@@ -1,0 +1,28 @@
+// domain.module.ts
+import { Module } from '@nestjs/common';
+import { AuthModule } from '@order/auth';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { {{capitalize serviceName}}Entity } from './{{serviceName}}/entity/{{serviceName}}.entity';
+import { DBModule } from '@order/database';
+import { TerminusModule } from '@nestjs/terminus';
+import { AppLoggerModule } from '@order/logger';
+import { ConfigModule } from '@order/config';
+import { {{capitalize serviceName}}Controller } from './{{serviceName}}/controllers/{{serviceName}}.controller';
+
+@Module({
+  imports: [
+    AuthModule,
+    EventEmitterModule.forRoot(),
+    TypeOrmModule.forFeature([{{capitalize serviceName}}Entity]),
+    DBModule.forRoot({
+      entities: [{{capitalize serviceName}}Entity],
+    }),
+    TerminusModule,
+    AppLoggerModule,
+    ConfigModule,
+  ],
+  controllers: [{{capitalize serviceName}}Controller],
+  providers: [{{capitalize serviceName}}Controller],
+})
+export class DomainModule {}
