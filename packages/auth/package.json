@@ -38,6 +38,7 @@
     "@types/passport": "^1.0.16",
     "@types/uuid": "^9.0.8",
     "reflect-metadata": "^0.2.2",
+    "rimraf": "^5.0.7",
     "rmraf": "^1.0.3",
     "rxjs": "^7.8.1",
     "tslib": "^2.6.2",

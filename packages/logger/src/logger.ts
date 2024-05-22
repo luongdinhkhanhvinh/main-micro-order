@@ -2,7 +2,7 @@ import { Injectable, LoggerService } from '@nestjs/common';
 import * as moment from 'moment';
 import * as winston from 'winston';
 
-import { isLogLevel, LogLevel } from '@/loglevel';
+import { isLogLevel, LogLevel } from './loglevel';
 
 const formatter = winston.format((info) => {
   if (info.level === LogLevel.HTTP) {
