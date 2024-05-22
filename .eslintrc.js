@@ -35,6 +35,16 @@ module.exports = {
     "react/no-unknown-property": 0,
     "no-console": 0,
     "no-undef": 0,
-    "no-plusplus": 0
+    "no-plusplus": 0,
+    "prettier/prettier": [
+      "error",
+      {
+        singleQuote: true,
+        printWidth: 150,
+        tabWidth: 2,
+        semi: true,
+        endOfLine: "auto",
+      },
+    ],
   },
 };

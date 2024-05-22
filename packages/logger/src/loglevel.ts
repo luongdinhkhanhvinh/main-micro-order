@@ -24,15 +24,7 @@ export enum LogLevel {
   Silly = 'silly',
 }
 
-const allLogLevels: string[] = [
-  LogLevel.Error,
-  LogLevel.Warn,
-  LogLevel.Info,
-  LogLevel.HTTP,
-  LogLevel.Verbose,
-  LogLevel.Debug,
-  LogLevel.Silly,
-];
+const allLogLevels: string[] = [LogLevel.Error, LogLevel.Warn, LogLevel.Info, LogLevel.HTTP, LogLevel.Verbose, LogLevel.Debug, LogLevel.Silly];
 
 /**
  * Determines if the value is a valid log level or not.

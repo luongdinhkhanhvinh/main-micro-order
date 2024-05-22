@@ -5,6 +5,7 @@
       "downlevelIteration": true,
       "importHelpers": true,
       "module": "commonjs",
+      "esModuleInterop": true,
       "declaration": true,
       "strict": true,
       "pretty": true,

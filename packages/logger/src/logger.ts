@@ -2,7 +2,7 @@ import { Injectable, LoggerService } from '@nestjs/common';
 import * as moment from 'moment';
 import * as winston from 'winston';
 
-import { isLogLevel, LogLevel } from './loglevel';
+import { isLogLevel, LogLevel } from '@/loglevel';
 
 const formatter = winston.format((info) => {
   if (info.level === LogLevel.HTTP) {
@@ -10,9 +10,7 @@ const formatter = winston.format((info) => {
     return info;
   }
   if (process.env.NODE_ENV !== 'test') {
-    info.message = `[${moment().format('ddd MMM DD HH:mm:ss YYYY')}] [${
-      info.level
-    }] ${info.message}`;
+    info.message = `[${moment().format('ddd MMM DD HH:mm:ss YYYY')}] [${info.level}] ${info.message}`;
   }
   return info;
 });
