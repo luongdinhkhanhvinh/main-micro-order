@@ -26,7 +26,7 @@ export const INVALID_AUTH_TOKEN_SOURCE =
   'Invalid Auth Token or invalid source of this token, unable to fetch SigningKey for token';
 export const MISSING_AUTH_HEADER = 'Missing Authorization Header';
 
-export const ALLOWED_MIMETYPES = [
+export const ALLOWED_MIMETYPES =  [
   'image/jpg', //jpeg
   'image/jpeg', //jpeg
   'image/png', //png
