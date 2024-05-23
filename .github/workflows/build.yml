@@ -1,23 +1,50 @@
-name: Build Project
+name: CI/CD với Linting và Commit
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
-    branches:
-      - master
+    branches: [ dev ]
 
 jobs:
-  example_comment_pr:
+  build:
     runs-on: ubuntu-latest
-    name: An example job to comment a PR
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cài đặt Node.js
+        uses: actions/setup-node@v3
         with:
-          message: |
-            Hello world ! :wave:
+          node-version: '16'
+
+      - name: Cài đặt dependencies
+        run: npm install
+
+      - name: Chạy linting
+        run: npm run lint
+
+      - name: Xuất trạng thái
+        id: lint-status
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "Linting thành công!"
+            exit 0
+          else
+            echo "Linting thất bại!"
+            exit 1
+          fi
+
+      - name: Commit kết quả
+        uses: peter-evans/commit@v2
+        if: ${{ steps.lint-status.outputs.exit-code == 0 }}
+        with:
+          message: "Linting thành công!"
+          emoji: "+1"
+          branch: ${{ github.event.pull_request.head.ref }}
+
+      - name: Commit kết quả lỗi
+        uses: peter-evans/commit@v2
+        if: ${{ steps.lint-status.outputs.exit-code != 0 }}
+        with:
+          message: "Linting thất bại!"
+          emoji: "-1"
+          branch: ${{ github.event.pull_request.head.ref }}
