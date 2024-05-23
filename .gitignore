@@ -33,7 +33,7 @@ pnpm-debug.log*
 node_modules
 /build
 /.svelte-kit
-/package
+/packages
 .env
 .env.*
 !.env.example
@@ -41,6 +41,7 @@ node_modules
 .output
 /packages/**/build
 /packages/**/dist
+/packages/**/
 /apps/**/build
 /apps/**/dist
 /infra/**/build
