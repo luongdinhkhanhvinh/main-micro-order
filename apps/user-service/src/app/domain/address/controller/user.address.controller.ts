@@ -18,7 +18,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { FirebaseAuthGuard, User, UserMetaData } from '@order/auth';
+import { FirebaseAuthGuard, User, UserMetaData } from 'vi-auths';
 import { CreateAddressDto, userAddressByIdDto } from '../dto/user-request.dto';
 import { UserAddressService } from '../services/user.address.service';
 

@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserAddressEntity } from '../entity/user.address.entity';
-import { Logger } from '@order/logger';
+import { Logger } from 'vi-logger';
 import { CreateAddressDto, userAddressByIdDto } from '../dto/user-request.dto';
-import { UserMetaData } from '@order/auth';
+import { UserMetaData } from 'vi-auths';
 import { Repository } from 'typeorm';
 
 export interface UserAddressServiceIml {
