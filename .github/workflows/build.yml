@@ -9,39 +9,15 @@ on:
       - master
 
 jobs:
-  build:
+  example_comment_pr:
     runs-on: ubuntu-latest
-
+    name: An example job to comment a PR
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
         with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build the project
-        run: npm run lint
-
-    # Steps to post success or failure comments on PR
-    outputs:
-      status: ${{ steps.build.outcome }}
-
-  comment:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Post success comment
-        if: needs.build.outputs.status == 'success'
-        run: |
-          gh pr comment ${{ github.event.pull_request.number }} --body "![Success](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXVmeG0weHhvYnBvYTNlcjRhcXg2ZTJlbThjYWJtZGltdjltYTh1ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oriO08iBDJSJnMl9K/giphy.gif)"
-
-      - name: Post failure comment
-        if: needs.build.outputs.status == 'failure'
-        run: |
-          gh pr comment ${{ github.event.pull_request.number }} --body "![Failure](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWZsODAyejZ5bXIyMmNiM2c5MTNkajcwNnV5bHE4NjJ5NDhlbDVqZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/X9QEx7PMwNELs7l4p0/giphy.gif)"
+          message: |
+            Hello world ! :wave:
