@@ -1,54 +1,77 @@
-name: CI/CD với Linting và Commit
+name: Lint and Comment on PR
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Cài đặt Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
 
-      - name: Cài đặt dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Chạy linting
-        run: npm run lint
+    - name: Run build
+      run: npm run lint
+      continue-on-error: true
+      id: lint
 
-      - name: Xuất trạng thái
-        id: lint-status
-        run: |
-          if [ $? -eq 0 ]; then
-            echo "Linting thành công!"
-            exit 0
-          else
-            echo "Linting thất bại!"
-            exit 1
-          fi
+    - name: Create status output
+      id: status
+      run: |
+        if [ ${{ steps.lint.outcome }} == 'success' ]; then
+          echo "status=success" >> $GITHUB_ENV
+        else
+          echo "status=failure" >> $GITHUB_ENV
+        fi
 
-      - name: Commit kết quả
-        uses: peter-evans/commit@v2
-        if: ${{ steps.lint-status.outputs.exit-code == 0 }}
-        with:
-          message: "Linting thành công!"
-          emoji: "+1"
-          branch: ${{ github.event.pull_request.head.ref }}
+    - name: Set GitHub status check
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const state = process.env.status === 'success' ? 'success' : 'failure';
+          await github.rest.repos.createCommitStatus({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            sha: context.payload.pull_request.head.sha,
+            state: state,
+            context: 'build',
+            description: state === 'success' ? 'Build successful' : 'Build failed'
+          });
 
-      - name: Commit kết quả lỗi
-        uses: peter-evans/commit@v2
-        if: ${{ steps.lint-status.outputs.exit-code != 0 }}
-        with:
-          message: "Linting thất bại!"
-          emoji: "-1"
-          branch: ${{ github.event.pull_request.head.ref }}
+    - name: Post success comment
+      if: ${{ env.status == 'success' }}
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: "The build was successful! :white_check_mark::white_check_mark:"
+          })
+
+    - name: Post failure comment
+      if: ${{ env.status == 'failure' }}
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: "The build failed. :poop::poop:"
+          })
