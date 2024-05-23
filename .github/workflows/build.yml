@@ -60,7 +60,7 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
-            body: "The build was successful! :white_check_mark::white_check_mark:"
+            body: "![success](https://github.com/luongdinhkhanhvinh/main-micro-order/assets/57809324/99b62b8d-5869-46f9-b3e5-75e65cc5c160)The build was successful! :white_check_mark::white_check_mark:"
           })
 
     - name: Post failure comment
@@ -73,5 +73,5 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
-            body: "The build failed. :poop::poop:"
+            body: "![error](https://github.com/luongdinhkhanhvinh/main-micro-order/assets/57809324/3b22b98b-6b5a-4a35-928c-c8a88df7463b)The build failed. :poop::poop:"
           })
