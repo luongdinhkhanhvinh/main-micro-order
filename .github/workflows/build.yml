@@ -1,8 +1,12 @@
 name: CI/CD với Linting và Commit
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
-    branches: [ dev ]
+    branches:
+      - master
 
 jobs:
   build:
