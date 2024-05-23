@@ -8,7 +8,8 @@
     "build": "nest build",
     "format": "prettier --write \"**/*.ts\"",
     "lint": "eslint \"**/*.ts\" --fix",
-    "prepare": "test -d node_modules/husky && husky install || echo \"husky is not installed\""
+    "prepare": "test -d node_modules/husky && husky install || echo \"husky is not installed\"",
+    "clone-local": "git clone https://github.com/luongdinhkhanhvinh/packages"
   },
   "dependencies": {
     "@nestjs/swagger": "^7.3.1",
