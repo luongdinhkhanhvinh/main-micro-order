@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from '@order/auth';
+import { AuthModule } from 'vi-auths';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserAddressEntity } from './address/entity/user.address.entity';
-import { DBModule } from '@order/database';
+import { DBModule } from 'vi-databases';
 import { TerminusModule } from '@nestjs/terminus';
-import { AppLoggerModule } from '@order/logger';
-import { ConfigModule } from '@order/config';
+import { AppLoggerModule } from 'vi-logger';
+import { ConfigModule } from 'vi-configs';
 import { UserAddressController } from './address/controller/user.address.controller';
 
 @Module({
