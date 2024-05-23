@@ -18,7 +18,7 @@ export const JKWS_REQUESTS_PER_MINUTE = 10;
 export const BAD_REQUEST = 'bad request';
 export const UNAUTHORIZED_REQUEST = 'user unauthorized';
 
-export const INVALID_AUTH_PROVIDER = 'Not Supported Auth provider';
+export const INVALID_AUTH_PROVIDER =  'Not Supported Auth provider';
 export const INVALID_BEARER_TOKEN =
   'Invalid Authorization token - Token does not match Bearer .*';
 export const INVALID_AUTH_TOKEN = 'Invalid Auth Token';
