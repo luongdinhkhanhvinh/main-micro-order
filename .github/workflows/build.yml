@@ -1,4 +1,4 @@
-name: Lint and Comment on PR
+name: Buld and Comment on PR
 
 on:
   pull_request:
@@ -22,7 +22,7 @@ jobs:
       run: npm install
 
     - name: Run build
-      run: npm run lint
+      run: npm run build-all
       continue-on-error: true
       id: lint
 
