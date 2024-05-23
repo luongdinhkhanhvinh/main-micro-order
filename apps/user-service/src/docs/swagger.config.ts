@@ -1,4 +1,4 @@
-import { SwaggerConfig } from '@/docs/swagger.interface';
+import { SwaggerConfig } from './swagger.interface';
 
 export const SWAGGER_CONFIG: SwaggerConfig = {
   title: 'User preference service',

@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from '@order/config';
 import { ExtractJwt, Strategy } from 'passport-firebase-jwt';
-import { FirebaseInstance } from '@/firebase.service';
+import { FirebaseInstance } from './firebase.service';
 import { auth } from 'firebase-admin';
 
 @Injectable()
